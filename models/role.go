@@ -5,7 +5,9 @@ type Role struct {
 	Name        string
 	Description string
 
-	CreatedAt int64 `gorm:"autoCreateTime"`
-	UpdatedAt int64 `gorm:"autoUpdateTime:milli"`
-	DeletedAt int64
+	Permissions []Permission `gorm:"many2many:role_permission;"`
+	Active      bool
+	CreatedAt   int64 `gorm:"autoCreateTime"`
+	UpdatedAt   int64 `gorm:"autoUpdateTime:milli"`
+	DeletedAt   int64
 }
