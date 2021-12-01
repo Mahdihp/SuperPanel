@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+database:
+  dbname: "super_panel"
+  dbuser: "root"
+  dbpassword: "root"
+  dbport: 3306
