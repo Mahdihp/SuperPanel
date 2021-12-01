@@ -1,9 +1,9 @@
-package models
+package domain
 
-type User struct {
-	ID        uint `gorm:"primaryKey"`
-	FirstName string
-	LastName  string
+type Permission struct {
+	ID          int `gorm:"primaryKey"`
+	Name        string
+	Description string
 
 	Active    bool
 	CreatedAt int64 `gorm:"autoCreateTime"`
