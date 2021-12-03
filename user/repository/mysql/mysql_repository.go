@@ -15,7 +15,7 @@ func NewMySqlUserRepository(db *gorm.DB) domain.UserRepository {
 		DB: db,
 	}
 }
-func (this *mysqlUserRepo) GetByID(ctx context.Context, id uint) (domain.User, error) {
+func (this *mysqlUserRepo) GetByID(ctx context.Context, id int32) (domain.User, error) {
 	var user domain.User
 	first := this.DB.First(&user, id)
 	if first.Error == nil {

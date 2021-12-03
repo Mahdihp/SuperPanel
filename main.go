@@ -3,10 +3,16 @@ package main
 import (
 	config "SuperPanel/config"
 	"SuperPanel/domain"
+	_userController "SuperPanel/user/delivery/http"
+	_mysqlUserRepo "SuperPanel/user/repository/mysql"
+	_userUseCase "SuperPanel/user/usecase"
+	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	mysql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"strconv"
+	"time"
 )
 
 var Config *config.Configurations
@@ -22,6 +28,12 @@ func main() {
 	Logger.Info(DB.Config.Name())
 	Logger.Info(Config.Database.DBName)
 
+	app := fiber.New()
+	timeoutContext := time.Duration(viper.GetInt("context.timeout")) * time.Second
+	UserRepo := _mysqlUserRepo.NewMySqlUserRepository(DB)
+	UserUseCase := _userUseCase.NewUserUsecase(UserRepo, timeoutContext)
+	_userController.NewUserController(app, UserUseCase)
+	app.Listen(":3000")
 }
 
 func InitDb() *gorm.DB {

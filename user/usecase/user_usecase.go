@@ -11,7 +11,7 @@ type userUsecase struct {
 	contextTimeout time.Duration
 }
 
-func (this *userUsecase) GetByID(ctx context.Context, id uint) (domain.User, error) {
+func (this *userUsecase) GetByID(ctx context.Context, id int32) (domain.User, error) {
 	// جزییات پیاده سازی اینجا قراار میگیره
 	user, err := this.userRepo.GetByID(ctx, id)
 	if err != nil {
@@ -20,9 +20,9 @@ func (this *userUsecase) GetByID(ctx context.Context, id uint) (domain.User, err
 	return user, nil
 }
 
-func NewUserUsecase(a domain.UserRepository, timeout time.Duration) domain.UserUsecase {
+func NewUserUsecase(userrep domain.UserRepository, timeout time.Duration) domain.UserUsecase {
 	return &userUsecase{
-		userRepo:       a,
+		userRepo:       userrep,
 		contextTimeout: timeout,
 	}
 }
